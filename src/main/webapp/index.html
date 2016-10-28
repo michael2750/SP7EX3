@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="myApp">
+    <head ng-app="myApp">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+
+    </head>
+    <body>
+        <div ng-controller="MyController as Myctrl"></div>
+        <div school-kids></div>
+        <div ng-controller="DirectiveController as ctrl">
+            <div format-company></div>
+        </div>
+        <script>
+            var myApp = angular.module('myApp', []);
+            myApp.controller('MyController', [function () {
+                    var self = this;
+                    self.persons = [
+                        {name: 'Hans', gender: 'male', age: 8}, {name: 'Grethe', gender: 'female', age: 7},
+                        {name: 'Frederik', gender: 'male', age: 61}, {name: 'Hassan', gender: 'male', age: 13},
+                        {name: 'Karen', gender: 'female', age: 31}];
+                }])
+                    .filter('ageFilter', function () {
+                        return function (persons) {
+                            var child = [];
+                            for (i = 0; i < age.length; i++) {
+                                if (persons.age >= 6 && persons.age <= 15) {
+                                    child.push(persons[i]);
+                                }
+                            }
+                            return child;
+                        };
+                    })
+                            .directive('schoolKids', function () {
+                        return {
+                            template: ''
+                        };
+                    });
+            myApp.controller("DirectiveController", ['$scope', function ($scope) {
+                    $scope.user = {
+                        companyName: "Coolest Company on Earth",
+                        companyUrl: "http://www.cool.cooler.com",
+                        created: new Date()
+                    }
+                }])
+                    .directive('formatCompany', function () {
+                        return {
+                            template: 'Company: {{user.companyName}}<br>\n\
+                                          Url: <a href="{{user.companyUrl}}">Visit us</a><br>\n\
+                                          Created: {{user.created}}'
+                        };
+                    });
+
+        </script>
+    </body>
+</html>
